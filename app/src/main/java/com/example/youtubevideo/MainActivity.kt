@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,18 +34,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val viewModel: MainViewModel = viewModel()
-            var selectedVideoId by remember { mutableStateOf<String?>(null) }
+            var selectedVideoId by rememberSaveable { mutableStateOf<String?>(null) }
 
             if (selectedVideoId == null) {
                 YouTubeSearchScreen(viewModel) { videoId ->
                     selectedVideoId = videoId
                 }
             } else {
-                YouTubePlayerScreen(videoId = selectedVideoId!!)
+                YouTubePlayerScreen(videoId = selectedVideoId!!) {
+                    selectedVideoId = null  // Вернуться назад при нажатии "Назад"
+                }
             }
         }
     }
 }
+
 
 @Composable
 fun YouTubeSearchScreen(viewModel: MainViewModel, onVideoClick: (String) -> Unit) {

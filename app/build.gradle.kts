@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.media3:media3-exoplayer:1.2.0")
+    implementation ("androidx.media3:media3-ui:1.2.0")
     implementation("com.google.android.material:material:1.9.0") // Material Design
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
